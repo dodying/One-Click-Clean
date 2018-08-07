@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "homepage_url": "http://path/to/homepage",
+  "name": "__MSG_extName__",
+  "version": "0.0.1",
+  "default_locale": "en",
+  "description": "__MSG_extDesc__",
+  "icons": {
+    "16": "images/logo-16.png",
+    "48": "images/logo-48.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "16": "images/logo-16.png",
+      "48": "images/logo-48.png"
+    }
+  },
+  "background": {
+    "scripts": [
+      "js/background.js"
+    ],
+    "persistent": false
+  },
+  "options_page": "options.html",
+  "permissions": [
+    "<all_urls>",
+    "browsingData",
+    "cookies",
+    "notifications"
+  ]
+}

@@ -1,0 +1,2 @@
+html,body,body>div{height:100%;}
+textarea{width:99%;height:calc(99% - 32px);}
