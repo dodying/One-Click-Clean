@@ -25,7 +25,9 @@
   "permissions": [
     "<all_urls>",
     "browsingData",
+    "contextMenus",
     "cookies",
-    "notifications"
+    "notifications",
+    "tabs"
   ]
 }
