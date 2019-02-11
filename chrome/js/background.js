@@ -1,3 +1,13 @@
+chrome.runtime.onInstalled.addListener(function () {
+  let exclude
+  try {
+    exclude = JSON.parse(window.localStorage.exclude)
+  } catch (error) {
+    exclude = []
+    window.localStorage.exclude = JSON.stringify(exclude)
+  }
+})
+
 const warning = `Confirm to DELETE All Data without \nPasswords and Cookies match \n- - -\n{exclude}`
 
 const removeOther = async function () {
@@ -16,9 +26,9 @@ const removeOther = async function () {
       'history': true,
       'indexedDB': true,
       'localStorage': true,
-      'serverBoundCertificates': true,
       // 'passwords': true,
       'pluginData': true,
+      'serverBoundCertificates': true,
       'serviceWorkers': true,
       'webSQL': true
     }, function () {
@@ -129,7 +139,7 @@ chrome.contextMenus.onClicked.addListener(function (info, tab) {
 })
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {
-  chrome.tabs.query({active: true}, info => {
+  chrome.tabs.query({ active: true }, info => {
     let exclude = JSON.parse(window.localStorage.exclude)
     for (let i of info) {
       if (exclude.some(j => i.url.match(j))) {
