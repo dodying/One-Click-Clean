@@ -9,18 +9,14 @@ browser.runtime.onInstalled.addListener(function () {
 })
 
 const removeOther = async function () {
-  let history = await browser.history.search({ text: '' })
-  let hosts = history.map(i => new URL(i.url).host).filter((i, j, arr) => arr.indexOf(i) === j)
-  await browser.browsingData.remove({
-    'hostnames': hosts
-  }, {
+  await browser.browsingData.remove({}, {
     'cache': true,
     'downloads': true,
     // 'fileSystems': true,
     'formData': true,
     'history': true,
     'indexedDB': true,
-    'localStorage': true,
+    // 'localStorage': true, // doesn't work
     // 'passwords': true,
     'pluginData': true,
     // 'serverBoundCertificates': true,
@@ -29,7 +25,7 @@ const removeOther = async function () {
 }
 
 const notification = function (text) {
-  chrome.notifications.create({
+  browser.notifications.create({
     type: 'basic',
     iconUrl: './../images/logo-48.png',
     title: 'One Click Clean',
@@ -44,7 +40,7 @@ browser.browserAction.onClicked.addListener(async function () {
   for (let i of cookies) {
     let url = `${i.secure ? 'https' : 'http'}://${i.domain}${i.path}`
     if (exclude.some(j => url.match(j))) continue
-    await chrome.cookies.remove({
+    await browser.cookies.remove({
       url: url,
       name: i.name
     })
